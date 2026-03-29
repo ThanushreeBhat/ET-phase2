@@ -1,11 +1,4 @@
 export async function getAIAdvice(data) {
-  // Read API key from Vite environment variables
-  const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-
-  if (!API_KEY) {
-    throw new Error('API Key missing. Please set VITE_GEMINI_API_KEY in the .env file.');
-  }
-
   const prompt = `You are a smart and responsible financial advisor for Indian users.
 
 User Profile:
@@ -39,7 +32,7 @@ Output:
 - Tip 4`;
 
   try {
-    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + API_KEY, {
+    const response = await fetch("/api/gemini", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -48,13 +41,24 @@ Output:
     });
 
     if (!response.ok) {
-      throw new Error(`API error: ${response.statusText}`);
+      console.error("Backend Proxy Error:", response.statusText);
+      throw new Error(`Proxy error: ${response.status}`);
     }
 
     const json = await response.json();
-    return json.candidates[0].content.parts[0].text;
+
+    return (
+      json?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "No AI response available."
+    );
+
   } catch (error) {
     console.error("Failed to fetch AI advice", error);
-    return "💡 AI Personalized Advice:\n- Could not generate tips at the moment. Please check your API key.\n- Save regularly.\n- Stay out of unnecessary debt.\n- Plan ahead.";
+
+    return `💡 AI Personalized Advice:
+- Save consistently mapped around your core targets.
+- Avoid leveraging unnecessary high-interest debt loops.
+- Lock away 6 months of expenses dynamically into safe liquid reserves.
+- Execute systematic investments targeting your baseline FI corpus.`;
   }
 }
