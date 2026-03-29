@@ -28,6 +28,14 @@ AI Money Mentor is a modern, responsive React web application that combines dete
 - **LLM Engine**: Google Generative AI REST Endpoints (`generativelanguage.googleapis.com`).
 
 ---
+## 📈 Impact
+
+- Helps students and professionals understand finances
+- Makes financial planning accessible
+- Encourages better saving and investment behavior
+- Reduces dependency on expensive financial advisors
+
+---
 
 ## 🚀 Setup & Installation
 
@@ -41,7 +49,7 @@ Follow these instructions to run the application locally on your machine.
 
 1. **Navigate to the Source**
    ```bash
-   cd "d:/Hackathin/AI Money mentor"
+   cd 
    ```
 
 2. **Install Dependencies**
